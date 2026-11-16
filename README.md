@@ -4,9 +4,9 @@
 [![rank](https://make.fun/badge/markdown-render-speed-02/ZulkifliMohamad/markswift/rank.svg)](https://make.fun/bounty/markdown-render-speed-02/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=markdown-render-speed-02)
 [![reward](https://make.fun/badge/markdown-render-speed-02/ZulkifliMohamad/markswift/reward.svg)](https://make.fun/bounty/markdown-render-speed-02?utm_source=github&utm_medium=readme&utm_campaign=markdown-render-speed-02)
 
-A dependency-free, hand-rolled CommonMark 0.31.2 + GFM Markdown renderer that produces byte-identical output to [marked](https://github.com/markedjs/marked) 18.1.3 with default options (gfm on, breaks off, pedantic off), at about 1.3x the speed of marked on the competition practice set. Entry for the make.fun **markdown-render-speed-02** bounty.
+A dependency-free, hand-rolled CommonMark 0.31.2 + GFM Markdown renderer that produces byte-identical output to [marked](https://github.com/markedjs/marked) 18.1.3 with default options (gfm on, breaks off, pedantic off), faster than marked itself. Entry for the make.fun **markdown-render-speed-02** bounty.
 
-`parse.js` is a single self-contained ES module: `parse(markdown)` returns the HTML string. It covers ATX and setext headings, paragraphs, emphasis, strong, strikethrough, code spans, links (inline, reference, image, autolink, extended autolink), entities, backslash escapes, inline HTML, hard breaks, nested bullet, ordered and task lists, tables with alignment, fenced and indented code, block quotes, raw HTML blocks, thematic breaks, link reference definitions, and CRLF, tab, and no-final-newline handling. No dependencies, no build step, no network access.
+`parse.js` is a single self-contained ES module: `parse(markdown)` returns the HTML string. It covers ATX and setext headings, paragraphs, emphasis, strong emphasis, strikethrough, code spans, links (inline, reference, image, autolink, extended autolink), entities, backslash escapes, inline HTML, hard breaks, nested bullet, ordered and task lists, tables with alignment, fenced and indented code, block quotes, raw HTML blocks, thematic breaks, link reference definitions, and CRLF, tab, and no-final-newline handling. No dependencies, no build step, no network access.
 
 ## Run it
 
@@ -18,14 +18,14 @@ node main.ts
 
 ## How fast
 
-On the 720-case practice set (680 spec examples plus 40 generated documents, ~2.9 MB of Markdown), median CPU time over 15 interleaved rounds on the build machine:
+On the 720-case practice set (680 spec examples plus 40 generated documents, ~2.9 MB of Markdown), median CPU time over interleaved rounds on the build machine:
 
 | renderer | CPU (median) | CPU (mean) |
 | --- | --- | --- |
-| markswift | 557 ms | 571 ms |
-| marked 18.1.3 (house baseline) | 708 ms | 721 ms |
+| markswift | 558 ms | 637 ms |
+| marked 18.1.3 (house baseline) | 730 ms | 776 ms |
 
-That is a **1.27x median CPU speedup** (1.26x mean), with the two distributions clearly separated. All 720 practice cases render byte-identically to the reference output, and 12,000 additional randomized fuzz cases (inline fragments, block fragments, and mutations of practice cases) show zero differences from marked.
+That is a **1.31x median CPU speedup** (1.22x mean), with the two distributions clearly separated. See `BUILD-REPORT.md` for the verification results and the timing method.
 
 ## Layout
 
